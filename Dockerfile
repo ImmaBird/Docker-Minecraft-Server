@@ -1,9 +1,7 @@
 FROM java:8-jre-alpine
 
-WORKDIR /minecraft
+WORKDIR /server
 
-EXPOSE 25565
+COPY files /files
 
-COPY files .
-
-ENTRYPOINT [ "java", "-Xmx2G", "-Xms2G", "-jar", "server.jar", "nogui" ]
+ENTRYPOINT [ "/files/start-server" ]
