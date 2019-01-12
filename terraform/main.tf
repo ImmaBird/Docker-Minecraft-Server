@@ -1,7 +1,3 @@
-provider "google" {
-
-}
-
 resource "google_compute_instance" "server" {
   project      = "minecraft-228318"
   name         = "minecraft"
