@@ -28,7 +28,7 @@ resource "google_compute_subnetwork" "minecraft-subnetwork" {
 resource "google_compute_instance" "minecraft-server-vm" {
   name         = "minecraft-server-vm"
   zone         = "us-east1-b"
-  machine_type = "n1-standard-1"
+  machine_type = "n1-standard-2"
 
   boot_disk {
     initialize_params {
@@ -43,6 +43,4 @@ resource "google_compute_instance" "minecraft-server-vm" {
 
     access_config {}
   }
-
-  metadata_startup_script = "docker run -d -p 25565:25565 -v ~/server:/server immabird/minecraft:1.13.2"
 }
