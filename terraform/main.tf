@@ -50,5 +50,9 @@ resource "google_compute_instance" "minecraft-server-vm" {
     }
   }
 
-  metadata_startup_script = "git clone https://github.com/ImmaBird/mcworld; docker run -d -p 25565:25565 -v ~/mcworld:/server immabird/minecraft:1.13.2"
+  metadata_startup_script = <<SCRIPT
+  #! /bin/bash
+  git clone https://github.com/ImmaBird/mcworld
+  docker run -d -p 25565:25565 -v ~/mcworld:/server immabird/minecraft:1.13.2
+  SCRIPT
 }
