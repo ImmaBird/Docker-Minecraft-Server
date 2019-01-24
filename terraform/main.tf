@@ -25,6 +25,10 @@ resource "google_compute_subnetwork" "minecraft-subnetwork" {
   network       = "${google_compute_network.minecraft-server-network.name}"
 }
 
+resource "google_compute_address" "static" {
+  name = "ipv4-address"
+}
+
 resource "google_compute_instance" "minecraft-server-vm" {
   name         = "minecraft-server-vm"
   zone         = "us-east1-b"
@@ -33,7 +37,7 @@ resource "google_compute_instance" "minecraft-server-vm" {
   boot_disk {
     initialize_params {
       size  = 10
-      type  = "pd-standard"
+      type  = "pd-ssd"
       image = "gce-uefi-images/cos-stable"
     }
   }
@@ -41,6 +45,10 @@ resource "google_compute_instance" "minecraft-server-vm" {
   network_interface {
     subnetwork = "${google_compute_subnetwork.minecraft-subnetwork.name}"
 
-    access_config {}
+    access_config {
+      nat_ip = "${google_compute_address.static.address}"
+    }
   }
+
+  metadata_startup_script = "git clone https://github.com/ImmaBird/mcworld; docker run -d -p 25565:25565 -v ~/mcworld:/server immabird/minecraft:1.13.2"
 }

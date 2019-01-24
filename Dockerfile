@@ -4,4 +4,4 @@ WORKDIR /server
 
 COPY files /files
 
-ENTRYPOINT [ "/files/start-server" ]
+ENTRYPOINT [ "java", "-Xmx6G", "-Xms6G", "-jar", "/files/server.jar", "nogui" ]

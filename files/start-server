@@ -1,5 +1,0 @@
-#!/bin/sh
-printf "eula=true" > eula.txt
-mv /files/ops.json /server
-mv /files/server.properties /server
-java -Xmx2g -Xms2G -jar /files/server.jar nogui
